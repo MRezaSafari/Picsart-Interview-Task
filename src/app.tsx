@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./globalStyles";
 import { lightTheme, darkTheme } from "./models/theme";
@@ -26,6 +26,18 @@ const routesList = createBrowserRouter([
 const AppRoot = () => {
   const themeStore = useThemeStore();
 
+  useEffect(() => {
+    const x = async () => {
+      const req = await fetch(
+        "https://my.api.mockaroo.com/users.json?key=ccedb150"
+      );
+      const data = await req.text();
+
+      console.log(data);
+    };
+
+    x()
+  }, []);
   return (
     <main>
       <ThemeProvider
