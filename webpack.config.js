@@ -15,20 +15,22 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules|\.d\.ts$/,
-        test: /\.(tsx|ts)$/,
-        use: {
-          loader: "ts-loader",
-          options: {
-            compilerOptions: {
-              noEmit: false,
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: [["@babel/preset-env", { targets: "defaults" }]],
             },
           },
-        },
-      },
-      {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
