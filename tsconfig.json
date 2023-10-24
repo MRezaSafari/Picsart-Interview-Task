@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "es6",
+      "jsx": "react",
+      "strict": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "noEmit": true,
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "typeRoots": ["*.d.ts", "./node_modules/@types"],
+    },
+    "include": ["src/**/*", "./tsconfig.json"],
+    "exclude": ["node_modules", "dist"]
+  }
