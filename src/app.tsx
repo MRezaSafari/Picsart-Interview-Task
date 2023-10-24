@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import UsersList from "./pages/users";
 import UserDetails from "./pages/user";
+import { useThemeStore } from "./states";
 
 const routesList = createBrowserRouter([
   {
@@ -22,14 +23,21 @@ const routesList = createBrowserRouter([
   },
 ]);
 
-interface Props {}
-
-const AppRoot: FC<Props> = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+const AppRoot = () => {
+  const themeStore = useThemeStore();
 
   return (
     <main>
-      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <ThemeProvider
+        theme={themeStore.theme === "light" ? lightTheme : darkTheme}
+      >
+        <button
+          onClick={() => {
+            themeStore.switch(themeStore.theme === "light" ? "dark" : "light");
+          }}
+        >
+          Change theme
+        </button>
         <GlobalStyle />
         <RouterProvider router={routesList} />
       </ThemeProvider>

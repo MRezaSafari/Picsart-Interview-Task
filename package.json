@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "react-router-dom": "^6.14.2",
-    "styled-components": "^6.1.0"
+    "styled-components": "^6.1.0",
+    "zustand": "^4.4.4"
   },
   "keywords": [],
   "author": "Reza Safari",

@@ -9,6 +9,8 @@ if (rootElement) {
   createRoot(rootElement).render(<AppRoot />);
 }
 
+// @ts-ignore
 if (module.hot) {
+  // @ts-ignore
   module.hot.accept();
 }
