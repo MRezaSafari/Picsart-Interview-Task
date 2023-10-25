@@ -3,11 +3,19 @@ import { createRoot } from "react-dom/client";
 
 import AppRoot from "./app";
 
-const rootElement = document.getElementById("root");
+let rootElement: unknown = null;
 
-if (rootElement) {
-  createRoot(rootElement).render(<AppRoot />);
-}
+document.addEventListener('DOMContentLoaded', function(event) {
+  if (!rootElement) {
+    rootElement = document.getElementById('root') as HTMLElement;
+    const root = createRoot(rootElement as HTMLDivElement)
+    root.render(
+      <React.StrictMode>
+        <AppRoot />
+      </React.StrictMode>
+    );
+  }
+});
 
 // @ts-ignore
 if (module.hot) {

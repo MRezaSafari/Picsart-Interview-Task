@@ -7,6 +7,8 @@ import Home from "./pages/home";
 import UsersList from "./pages/users";
 import UserDetails from "./pages/user";
 import { useThemeStore } from "./states";
+import { getPocketBaseInstance } from "./utilities";
+import { IApiBaseModel, IUser } from "./models";
 
 const routesList = createBrowserRouter([
   {
@@ -28,16 +30,18 @@ const AppRoot = () => {
 
   useEffect(() => {
     const x = async () => {
-      const req = await fetch(
-        "https://my.api.mockaroo.com/users.json?key=ccedb150"
-      );
-      const data = await req.text();
+      const result = (await getPocketBaseInstance()
+        .collection("users")
+        .getList(1, 50, {
+          filter: "",
+        })) as IApiBaseModel<IUser[]>;
 
-      console.log(data);
+      console.log(result.page);
     };
 
-    x()
+    x();
   }, []);
+
   return (
     <main>
       <ThemeProvider
