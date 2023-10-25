@@ -2,16 +2,19 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 
 import AppRoot from "./app";
+import { BrowserRouter } from "react-router-dom";
 
 let rootElement: unknown = null;
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
   if (!rootElement) {
-    rootElement = document.getElementById('root') as HTMLElement;
-    const root = createRoot(rootElement as HTMLDivElement)
+    rootElement = document.getElementById("root") as HTMLElement;
+    const root = createRoot(rootElement as HTMLDivElement);
     root.render(
       <React.StrictMode>
-        <AppRoot />
+        <BrowserRouter>
+          <AppRoot />
+        </BrowserRouter>
       </React.StrictMode>
     );
   }
