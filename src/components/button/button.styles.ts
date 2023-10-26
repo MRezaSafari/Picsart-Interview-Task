@@ -6,10 +6,11 @@ export const StyledButton = styled.button`
   border-radius: 8px;
   color: white;
   padding: 10px 14px;
+  width: max-content;
   cursor: pointer;
   transition: all ease 400ms;
-  
-  &:hover{
+
+  &:hover {
     background-color: blueviolet;
   }
 `;

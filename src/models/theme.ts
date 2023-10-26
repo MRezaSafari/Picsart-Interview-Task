@@ -1,4 +1,5 @@
 export const lightTheme = {
+  mode: 'light',
   background: "#f1f1f1",
   textColor: "#000",
   table: {
@@ -8,6 +9,7 @@ export const lightTheme = {
   },
 };
 export const darkTheme = {
+  mode: 'dark',
   background: "#151515",
   textColor: "#fff",
   table: {

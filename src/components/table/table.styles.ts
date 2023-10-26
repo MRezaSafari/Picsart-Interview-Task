@@ -2,8 +2,6 @@ import devices from "../../utilities/theme/devices";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 4rem 0;
-
   @media ${devices.mobile} {
     width: 100%;
     overflow: scroll;

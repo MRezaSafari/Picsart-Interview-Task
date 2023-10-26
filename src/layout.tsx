@@ -4,9 +4,11 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./globalStyles";
 import { lightTheme, darkTheme } from "./models/theme";
 import { useThemeStore } from "./states";
-import { Header } from "./app.styles";
+import { Header, Logo } from "./app.styles";
 import { IconBrightnessDown, IconMoonStars } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import Button from "./components/button/button";
+
 const pageVariants = {
   initial: {
     opacity: 0,
@@ -35,9 +37,9 @@ const RootLayout: FC = () => {
         theme={themeStore.theme === "light" ? lightTheme : darkTheme}
       >
         <GlobalStyle />
-        <main className="container">
-          <Header>
-            <h2>Picsart Task</h2>
+        <div>
+          <Header className="container">
+            <Logo href="/" />
 
             <ul>
               <li>
@@ -51,18 +53,19 @@ const RootLayout: FC = () => {
             <div>
               {themeStore.theme === "light" && (
                 <IconMoonStars
-                  size={40}
+                  size={30}
                   onClick={() => themeStore.switch("dark")}
                 />
               )}
               {themeStore.theme === "dark" && (
                 <IconBrightnessDown
-                  size={40}
+                  size={30}
                   onClick={() => themeStore.switch("light")}
                 />
               )}
             </div>
           </Header>
+         
           <motion.div
             key={pathname}
             initial="initial"
@@ -72,7 +75,7 @@ const RootLayout: FC = () => {
           >
             <Outlet />
           </motion.div>
-        </main>
+        </div>
       </ThemeProvider>
     </main>
   );

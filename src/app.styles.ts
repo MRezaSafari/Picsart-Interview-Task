@@ -17,3 +17,11 @@ export const Header = styled.header`
     }
   }
 `;
+
+
+export const Logo = styled.a`
+  background: url("/images/logo.svg");
+  background-size: cover;
+  width: 104px;
+  height: 24px;
+`;

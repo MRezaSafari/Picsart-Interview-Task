@@ -4,6 +4,8 @@ import { IApiBaseModel, IColumnTemplate, IUser } from "../../models";
 import { getUsersCollectionWithFilters } from "../../api";
 import Button from "../../components/button/button";
 import { Link } from "react-router-dom";
+import { Heading } from "./users.styles";
+import { IconChevronRight } from "@tabler/icons-react";
 
 interface Props {}
 
@@ -70,9 +72,10 @@ const UsersList: FC<Props> = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Users List</h1>
-
+    <div className="container">
+      <Heading>
+        <IconChevronRight />
+        Users List</Heading>
       {!loading && <Table columns={tableColumns} data={users} />}
     </div>
   );
