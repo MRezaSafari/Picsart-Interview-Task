@@ -1,2 +1,2 @@
 export * from "./theme/devices";
-export * from "./pocketbase";
+export { default as fetcher } from "./fetcher";
