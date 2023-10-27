@@ -55,7 +55,7 @@ export const Table = <T,>({ columns, data }: TableProps<T>) => {
     ));
 
   const renderRows = () =>
-    [...Array(sortedData.length).keys()].map((row: number) => (
+    [...Array(sortedData?.length).keys()].map((row: number) => (
       <tr key={`row-${row}`}>
         {columns.map((r: IColumnTemplate<T>) => (
           <td key={r.title.toLowerCase()} width={r.width}>
@@ -74,9 +74,11 @@ export const Table = <T,>({ columns, data }: TableProps<T>) => {
         <thead>
           <tr>{renderHeaders()}</tr>
         </thead>
-        {data.length > 0 && <tbody>{renderRows()}</tbody>}
+        {data && data?.length > 0 && <tbody>{renderRows()}</tbody>}
       </table>
-      {data.length === 0 && <EmptyState>No Data!</EmptyState>}
+      {(typeof data === "undefined" || data?.length === 0) && (
+        <EmptyState>No Data!</EmptyState>
+      )}
     </Container>
   );
 };

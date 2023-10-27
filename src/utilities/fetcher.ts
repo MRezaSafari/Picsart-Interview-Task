@@ -36,15 +36,17 @@ const fetcher = async (
 
   try {
     // initial url structure
-    const constructUrl = [process.env["API_URL"], fetchKey];
+    const formedUrl = [process.env["API_URL"], fetchKey];
 
     // add query params to url
     if (options && options.params) {
-      constructUrl.push("?" + stringify(options.params));
+      formedUrl.push("?" + stringify(options.params));
     }
 
+    console.log(formedUrl.join(""));
+
     // send a request
-    const response = await fetch(constructUrl.join(""), requestInit);
+    const response = await fetch(formedUrl.join(""), requestInit);
 
     // TODO: if we have some sort of authentication we should check for 401 errors here
 

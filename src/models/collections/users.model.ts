@@ -16,5 +16,8 @@ export interface IUser {
 export interface IUserFetch {
   page: number;
   perPage: number;
-  filters: string;
+  filters?: string[];
+
+  sortKey?: keyof IUser;
+  sortDirection?: "ASC" | "DESC";
 }

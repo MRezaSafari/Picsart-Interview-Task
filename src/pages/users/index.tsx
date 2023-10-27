@@ -60,7 +60,12 @@ const UsersList: FC<Props> = () => {
     const result = await getUsersCollectionWithFilters({
       page: 1,
       perPage: 10,
-      filters: "",
+      sortKey: 'age',
+      sortDirection: 'DESC',
+      filters: [
+        `email~"%kelly%"`,
+        'age>33'
+      ],
     });
 
     setUsers(result.items);
