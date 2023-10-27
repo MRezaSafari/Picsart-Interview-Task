@@ -1,6 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import Table from "../../components/table";
-import { IApiBaseModel, IColumnTemplate, IUser } from "../../models";
+import {
+  IApiBaseModel,
+  IColumnTemplate,
+  IUser,
+  IUserFetch,
+} from "../../models";
 import { getUsersCollectionWithFilters } from "../../api";
 import Button from "../../components/button/button";
 import { Link } from "react-router-dom";
@@ -36,7 +41,14 @@ const tableColumns: IColumnTemplate<IUser>[] = [
     title: "Actions",
     width: "100px",
     render: (row) => (
-      <div style={{display: 'flex', gap: 10, justifyContent: 'center', alignItems: 'center'}}>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Button
           onClick={() => {
             alert(row.age);
@@ -53,34 +65,40 @@ const tableColumns: IColumnTemplate<IUser>[] = [
 const UsersList: FC<Props> = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState<IUserFetch>({
+    page: 1,
+    perPage: 10,
+  });
 
-  const getUsers = async () => {
+  const getUsers = async (filters: IUserFetch) => {
     setLoading(true);
 
-    const result = await getUsersCollectionWithFilters({
-      page: 1,
-      perPage: 10,
-      sortKey: 'age',
-      sortDirection: 'DESC',
-      filters: [
-        `email~"%kelly%"`,
-        'age>33'
-      ],
-    });
+    const result = await getUsersCollectionWithFilters(filters);
+
+    // page: 1,
+    // perPage: 10,
+    // sortKey: "age",
+    // sortDirection: "DESC",
+    // filters: [`email~"%kelly%"`, "age>33"],
 
     setUsers(result.items);
     setLoading(false);
   };
 
   useEffect(() => {
-    getUsers();
+    getUsers(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    getUsers(filters);
   }, []);
 
   return (
     <div className="container">
       <Heading>
         <IconChevronRight />
-        Users List</Heading>
+        Users List
+      </Heading>
       {!loading && <Table columns={tableColumns} data={users} />}
     </div>
   );

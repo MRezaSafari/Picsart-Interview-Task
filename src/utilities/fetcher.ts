@@ -43,8 +43,6 @@ const fetcher = async (
       formedUrl.push("?" + stringify(options.params));
     }
 
-    console.log(formedUrl.join(""));
-
     // send a request
     const response = await fetch(formedUrl.join(""), requestInit);
 
