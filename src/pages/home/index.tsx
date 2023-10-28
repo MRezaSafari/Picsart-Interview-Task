@@ -1,7 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, lazy } from "react";
 import Button from "../../components/button/button";
-import { AboutText, Banner, BannerContainer, BannerContents } from "./home.styles";
+import {
+  AboutText,
+  Banner,
+  BannerContainer,
+  BannerContents,
+} from "./home.styles";
 import { Link } from "react-router-dom";
+import ObserverWrapper from "../../components/observer-wrapper";
+
+const ExpensiveComponent1 = lazy(
+  () => import("../../components/expensive-component-1")
+);
+
+const ExpensiveComponent2 = lazy(
+  () => import("../../components/expensive-component-2")
+);
+
+const ExpensiveComponent3 = lazy(
+  () => import("../../components/expensive-component-3")
+);
 
 interface Props {}
 
@@ -54,6 +72,18 @@ const Home: FC<Props> = () => {
             <Link to="/users">Creators List</Link>
           </Button>
         </Banner>
+      </div>
+
+      <div className="container" style={{marginTop: 200}}>
+        <ObserverWrapper threshold={0.25}>
+          <ExpensiveComponent1 />
+        </ObserverWrapper>
+        <ObserverWrapper threshold={0.25}>
+          <ExpensiveComponent2 />
+        </ObserverWrapper>
+        <ObserverWrapper threshold={0.25}>
+          <ExpensiveComponent3 />
+        </ObserverWrapper>
       </div>
     </div>
   );

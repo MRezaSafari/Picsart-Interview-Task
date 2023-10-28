@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
-import { IColumnTemplate } from "../../models";
+import { IColumnTemplate, ITableProps } from "../../models";
 import { Container, EmptyState, HeaderItem } from "./table.styles";
 
-export interface TableProps<T> {
-  columns: IColumnTemplate<T>[];
-  data: T[];
-}
 
-export const Table = <T,>({ columns, data }: TableProps<T>) => {
+export const Table = <T,>({ columns, data }: ITableProps<T>) => {
   const [sortedData, setSortedData] = useState<T[]>(data);
 
   useEffect(() => {

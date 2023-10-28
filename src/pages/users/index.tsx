@@ -1,16 +1,14 @@
-import React, { FC, useEffect, useState } from "react";
-import Table from "../../components/table";
-import {
-  IApiBaseModel,
-  IColumnTemplate,
-  IUser,
-  IUserFetch,
-} from "../../models";
+import React, { FC, Suspense, useEffect, useState } from "react";
+import { IColumnTemplate, ITableProps, IUser, IUserFetch } from "../../models";
 import { getUsersCollectionWithFilters } from "../../api";
 import Button from "../../components/button/button";
 import { Link } from "react-router-dom";
 import { Heading } from "./users.styles";
 import { IconChevronRight } from "@tabler/icons-react";
+import { lazy } from "react";
+
+// TODO: Fix the type here
+const LazyTable = lazy<any>(() => import("../../components/table"));
 
 interface Props {}
 
@@ -64,15 +62,12 @@ const tableColumns: IColumnTemplate<IUser>[] = [
 
 const UsersList: FC<Props> = () => {
   const [users, setUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<IUserFetch>({
     page: 1,
     perPage: 10,
   });
 
   const getUsers = async (filters: IUserFetch) => {
-    setLoading(true);
-
     const result = await getUsersCollectionWithFilters(filters);
 
     // page: 1,
@@ -82,7 +77,6 @@ const UsersList: FC<Props> = () => {
     // filters: [`email~"%kelly%"`, "age>33"],
 
     setUsers(result.items);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -99,7 +93,9 @@ const UsersList: FC<Props> = () => {
         <IconChevronRight />
         Users List
       </Heading>
-      {!loading && <Table columns={tableColumns} data={users} />}
+      <Suspense fallback={<div>Loading ...</div>}>
+        <LazyTable columns={tableColumns} data={users} />
+      </Suspense>
     </div>
   );
 };

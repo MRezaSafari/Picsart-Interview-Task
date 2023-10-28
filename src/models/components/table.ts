@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type ColumnType = 'string' | 'boolean';
+type ColumnType = "string" | "boolean";
 
 interface IColumnTemplate<T> {
   title: string;
@@ -11,4 +11,9 @@ interface IColumnTemplate<T> {
   render?: (row: T) => ReactNode;
 }
 
-export type { IColumnTemplate, ColumnType };
+interface ITableProps<T> {
+  columns: IColumnTemplate<T>[];
+  data: T[];
+}
+
+export type { IColumnTemplate, ColumnType, ITableProps };
