@@ -14,7 +14,7 @@ const AppRoot = () => {
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/users" element={<UsersList />} />
+          <Route path="/users/:page?/:sortKey?/:sortOrder?" element={<UsersList />} />
           <Route path="/user/:id" element={<UserDetails />} />
           <Route path="*" element={<Page404 />} />
         </Route>

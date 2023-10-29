@@ -5,18 +5,23 @@ import {
   ITableProps,
   IUser,
   IUserFetch,
+  OrderDirection,
 } from "../../models";
 import { getUsersCollectionWithFilters } from "../../api";
 import Button from "../../components/button/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Heading } from "./users.styles";
 import { IconChevronRight } from "@tabler/icons-react";
 import { lazy } from "react";
 import { parse } from "querystring";
 
-const LazyTable = lazy<React.FC<ITableProps<IUser>>>(() => import("../../components/table"));
+const LazyTable = lazy<React.FC<ITableProps<IUser>>>(
+  () => import("../../components/table")
+);
 
-const UsersList = () => {
+const UsersList = (props: any) => {
+  const { page, sortKey, sortOrder } = useParams();
+
   const tableColumns: IColumnTemplate<IUser>[] = useMemo(
     () => [
       {
@@ -27,7 +32,7 @@ const UsersList = () => {
         width: "150px",
       },
       {
-        sortable: true,
+        sortable: false,
         title: "Email",
         type: "string",
         valueKey: "email",
@@ -41,7 +46,7 @@ const UsersList = () => {
         width: "50px",
       },
       {
-        sortable: true,
+        sortable: false,
         title: "Actions",
         width: "100px",
         render: (row) => (
@@ -76,14 +81,6 @@ const UsersList = () => {
   });
 
   const getUsers = async () => {
-    const hashOptions = parse(hash);
-
-    const newFilters = { ...filters };
-
-    if (hashOptions["#page"]) newFilters.page = +hashOptions["#page"];
-
-    setFilters(newFilters);
-
     try {
       const result = await getUsersCollectionWithFilters(filters);
       setFetchResult(result);
@@ -100,7 +97,16 @@ const UsersList = () => {
 
   useEffect(() => {
     getUsers();
-  }, [hash]);
+  }, [filters]);
+
+  useEffect(() => {
+    setFilters({
+      ...filters,
+      page: page ? +page : filters.page,
+      sortKey: sortKey ? sortKey as keyof IUser : filters.sortKey,
+      sortDirection: sortOrder ? sortOrder as OrderDirection : filters.sortDirection
+    });
+  }, [page, sortKey, sortOrder]);
 
   return (
     <div className="container">
@@ -108,6 +114,11 @@ const UsersList = () => {
         <IconChevronRight />
         Users List
       </Heading>
+
+      <div>
+        <p>Search with </p>
+      </div>
+
       <Suspense fallback={<div>Loading ...</div>}>
         <LazyTable
           columns={tableColumns}

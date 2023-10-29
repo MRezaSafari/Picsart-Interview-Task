@@ -1,3 +1,5 @@
+import { OrderDirection } from "../components";
+
 export interface IUser {
   address: string;
   age: number;
@@ -19,5 +21,5 @@ export interface IUserFetch {
   filters?: string[];
 
   sortKey?: keyof IUser;
-  sortDirection?: "ASC" | "DESC";
+  sortDirection?: OrderDirection;
 }

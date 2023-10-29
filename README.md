@@ -1,4 +1,4 @@
-Total time spent on the project: ``18h 22m``
+Total time spent on the project: ``19h 30m``
 
 ## TOC
 1. [How to run the project](#How-to-run-the-project)
@@ -32,7 +32,7 @@ like JSONPlaceholder, where users should be able to add, delete, and list items
     * User List Page 
         - ✅ Display a list of users with the following columns: Name, Email, Age, and Actions.
         - ✅ Pagination: Limit to 10 users per page.
-        - ❌ Sort: Provide sorting options for Name and Age.
+        - ✅ Sort: Provide sorting options for Name and Age.
         - ❌ Search: Include a search bar to search users by name.
     * User Details Page.
         - ❌ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture.
@@ -56,7 +56,7 @@ management tool.
     - ✅ Use useMemo or useCallback where necessary to showcase your ability to
     prevent unnecessary renders or recalculations.
     - ✅ Ensure no render-blocking resources are present.
-    - ❌ Optimize images or any assets you use.
+    - ✅ Optimize images or any assets you use.
 
 * 👉 Webpack:
     - ✅ Customize the Webpack config (You might start with Create React App but eject
@@ -74,7 +74,7 @@ management tool.
     - ✅ Implement error boundaries in the application for better error handling.
 
 * 👉 Documentation:
-    - ❌ Include a README.md detailing how to run and build the project, and any design
+    - ✅ Include a README.md detailing how to run and build the project, and any design
     decisions you made.
     - ❌ Discuss how you ensured the application's performance and any tools or
     techniques you used.
@@ -159,3 +159,4 @@ I strongly believe in 99.99% percent of projects you don't need such things to h
 ## 🔥 Improvement Opportunities
 1. Use Linting tools to prevent code mistakes and help new joiners match the code style.
 2. We can use Cloudflare image optimization for our image component so we can optimize, resize, decode image on demand.
+3. Adding loading state for table for a better UI

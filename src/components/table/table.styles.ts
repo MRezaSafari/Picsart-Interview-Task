@@ -128,11 +128,8 @@ export const PaginationItem = styled.li<{ $active: boolean }>`
   border: 1px solid #e2e2e2;
   padding: 10px 15px;
   border-radius: 10px;
-
+  color: ${(props) => (props.$active ? "white" : "black")};
   background-color: ${(props) => (props.$active ? "blue" : "white")};
+  cursor: pointer;
 
-  a {
-    display: block;
-    color: ${(props) => (props.$active ? "white" : "black")};
-  }
 `;

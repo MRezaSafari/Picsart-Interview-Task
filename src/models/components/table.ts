@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
+import { IUser } from "../collections";
 
 type ColumnType = "string" | "boolean";
+type OrderDirection = 'ASC' | 'DESC';
 
 interface IColumnTemplate<T> {
   title: string;
@@ -22,4 +24,4 @@ interface ITableProps<T> {
   };
 }
 
-export type { IColumnTemplate, ColumnType, ITableProps };
+export type { IColumnTemplate, ColumnType, ITableProps, OrderDirection };

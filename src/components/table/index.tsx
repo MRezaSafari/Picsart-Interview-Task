@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
-import { IColumnTemplate, ITableProps } from "../../models";
+import { IColumnTemplate, ITableProps, OrderDirection } from "../../models";
 import {
   Container,
   EmptyState,
@@ -11,23 +11,40 @@ import {
   PaginationItem,
   PaginationList,
 } from "./table.styles";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  generatePath,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
-  const [sortedData, setSortedData] = useState<T[]>(data || []);
+  const navigate = useNavigate();
+  const { page, sortKey, sortOrder } = useParams();
 
-  useEffect(() => {
-    setSortedData(data || []);
-  }, [data]);
-
-  const handleSort = (key: string | undefined, order: "ASC" | "DESC") => {
+  const handleSort = (key: keyof T | undefined, order: OrderDirection) => {
     if (!key) return;
-    const newData = Object.assign([], data);
 
-    if (order === "ASC") newData.sort((a, b) => (a[key] > b[key] ? 1 : -1));
-    if (order === "DESC") newData.sort((a, b) => (a[key] < b[key] ? 1 : -1));
+    navigate(
+      generatePath("/users/:page?/:sortKey?/:sortOrder?", {
+        sortKey: key.toString(),
+        sortOrder: order,
+        page: page ? page : null,
+      })
+    );
+  };
 
-    setSortedData(newData);
+  const handlePageChange = (page: number) => {
+    console.log(22222, page, sortKey, sortOrder)
+    navigate(
+      generatePath("/users/:page?/:sortKey?/:sortOrder?", {
+        page: page.toString(),
+        sortKey: sortKey ? sortKey : null,
+        sortOrder: sortOrder ? sortOrder : null,
+      })
+    );
   };
 
   const renderHeaders = () =>
@@ -41,14 +58,14 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
                 <IconChevronUp
                   width={15}
                   height={15}
-                  onClick={() => handleSort(r.valueKey, "ASC")}
+                  onClick={() => handleSort(r.valueKey as keyof T, "ASC")}
                 />
               </li>
               <li>
                 <IconChevronDown
                   width={15}
                   height={15}
-                  onClick={() => handleSort(r.valueKey, "DESC")}
+                  onClick={() => handleSort(r.valueKey as keyof T, "DESC")}
                 />
               </li>
             </ul>
@@ -58,15 +75,13 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
     ));
 
   const renderRows = () =>
-    sortedData &&
-    [...Array(sortedData?.length).keys()].map((row: number) => (
+    data &&
+    [...Array(data?.length).keys()].map((row: number) => (
       <tr key={`row-${row}`}>
         {columns.map((r: IColumnTemplate<T>) => (
           <td key={r.title.toLowerCase()} width={r.width}>
-            {r.render && r.render((sortedData as [])[row])}
-            {r.type === "string" &&
-              r.valueKey &&
-              (sortedData as [])[row][r.valueKey]}
+            {r.render && r.render((data as [])[row])}
+            {r.type === "string" && r.valueKey && (data as [])[row][r.valueKey]}
           </td>
         ))}
       </tr>
@@ -74,8 +89,12 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
 
   const renderPaginationItems = (page: number) => {
     return (
-      <PaginationItem key={page} $active={page + 1 === pagination?.currentPage}>
-        <Link to={`#page=${[page + 1]}`}>{page + 1}</Link>
+      <PaginationItem
+        key={page}
+        $active={page + 1 === pagination?.currentPage}
+        onClick={() => handlePageChange(page + 1)}
+      >
+        {page + 1}
       </PaginationItem>
     );
   };

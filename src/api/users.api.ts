@@ -8,6 +8,7 @@ const getUsersCollectionWithFilters = async ({
   sortKey,
   sortDirection,
 }: IUserFetch) => {
+  console.log(sortKey, sortDirection)
   const result = (await fetcher(ApiKeys.getUsers, "GET", {
     noCache: true,
     params: {
