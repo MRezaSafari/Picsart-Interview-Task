@@ -1,4 +1,4 @@
-Total time spent on the project: ``20h 12m``
+Total time spent on the project: ``20h 45m``
 
 ## TOC
 1. [How to run the project](#How-to-run-the-project)
@@ -6,7 +6,8 @@ Total time spent on the project: ``20h 12m``
 3. [Evaluation Criteria](#Evaluation-Criteria)
 4. [My Stack of choice](#My-Stack-of-choice)
 5. [Design Decisions](#Design-Decisions)
-6. [Improvement Opportunities](#Improvement-Opportunities)
+6. [Performance](#Performance)
+7. [Improvement Opportunities](#Improvement-Opportunities)
 
 ## How to run the project
 1. Install dependencies
@@ -63,7 +64,7 @@ management tool.
 * 👉 Webpack:
     - ✅ Customize the Webpack config (You might start with Create React App but eject
     it for customization).
-    - ❌ Ensure the final bundle is optimized in size.
+    - ✅ Ensure the final bundle is optimized in size.
     - ✅ Implement tree-shaking if necessary.
     - ✅ Set up Webpack to show a bundle size report.
     - ❌ Server-Side Rendering (Optional but a plus):
@@ -72,13 +73,13 @@ management tool.
 
 * 👉 Extras:
     - ✅ Use styled-components or any CSS-in-JS solution of your choice.
-    - ❌ Ensure the application is responsive.
+    - ✅ Ensure the application is responsive.
     - ✅ Implement error boundaries in the application for better error handling.
 
 * 👉 Documentation:
     - ✅ Include a README.md detailing how to run and build the project, and any design
     decisions you made.
-    - ❌ Discuss how you ensured the application's performance and any tools or
+    - ✅ Discuss how you ensured the application's performance and any tools or
     techniques you used.
 
 * 👉 Bonus
@@ -157,6 +158,11 @@ I strongly believe in 99.99% percent of projects you don't need such things to h
 9. **Support for React Concurrent Mode**: Zustand is designed to work well with React Concurrent Mode (a.k.a. React Suspense). This allows us to take advantage of React's concurrent rendering capabilities without additional adjustments.
 10. **Small Bundle Size**: Due to its simplicity and focused feature set, Zustand contributes to smaller bundle sizes, which is essential for optimizing application performance.
 
+## Performance
+1. Using debounce to reduce the api calls to the server
+2. Using useMemo to prevent rerendering lists that does not need to rerender
+3. Customizing image component and use lazy loading and also forcing the width and height to prevent any CLS
+4. Not using unnecessary third-party tools such as axios or lodash to reduce the overhead
 
 ## 🔥 Improvement Opportunities
 1. Use Linting tools to prevent code mistakes and help new joiners match the code style.

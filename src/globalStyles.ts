@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     max-width: 1280px;
     margin: auto;
     position: relative;
+    padding: 0 15px;
   }
 
   ul{

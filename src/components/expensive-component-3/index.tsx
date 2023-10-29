@@ -1,17 +1,11 @@
 import React from "react";
 import Image from "../image";
-
+import { Container } from "./expensive-component.style";
 const ExpensiveComponent3 = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       <div>
-        <h3>Just for the demo [[ 2 ]]</h3>
+        <h3>Just for the demo [[ 3 ]]</h3>
         <h2>Im a very expensive component ( Not really ) </h2>
       </div>
       <Image
@@ -21,7 +15,7 @@ const ExpensiveComponent3 = () => {
         lazy
         src="/images/aboutus.webp"
       />
-    </div>
+    </Container>
   );
 };
 

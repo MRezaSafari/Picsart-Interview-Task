@@ -13,7 +13,6 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Heading, SearchContainer } from "./users.styles";
 import { IconChevronRight } from "@tabler/icons-react";
 import { lazy } from "react";
-import { parse } from "querystring";
 import { debounce } from "../../utilities";
 
 const LazyTable = lazy<React.FC<ITableProps<IUser>>>(

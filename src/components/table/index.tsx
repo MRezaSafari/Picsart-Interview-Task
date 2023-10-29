@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
@@ -11,24 +11,19 @@ import {
   PaginationItem,
   PaginationList,
 } from "./table.styles";
-import {
-  Link,
-  generatePath,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 
 export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
   const navigate = useNavigate();
   const { page, sortKey, sortOrder } = useParams();
 
+  const ORIGINAL_PATH = "/users/:page?/:sortKey?/:sortOrder?";
+
   const handleSort = (key: keyof T | undefined, order: OrderDirection) => {
     if (!key) return;
 
     navigate(
-      generatePath("/users/:page?/:sortKey?/:sortOrder?", {
+      generatePath(ORIGINAL_PATH, {
         sortKey: key.toString(),
         sortOrder: order,
         page: page ? page : null,
@@ -38,7 +33,7 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
 
   const handlePageChange = (page: number) => {
     navigate(
-      generatePath("/users/:page?/:sortKey?/:sortOrder?", {
+      generatePath(ORIGINAL_PATH, {
         page: page.toString(),
         sortKey: sortKey ? sortKey : null,
         sortOrder: sortOrder ? sortOrder : null,
@@ -117,27 +112,29 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
   };
 
   return (
-    <Container>
+    <>
       {data &&
         pagination &&
         (pagination?.position === "top" || pagination?.position === "both") &&
         renderPaginations()}
+      <Container>
+        <table cellPadding="0" cellSpacing="0">
+          <thead>
+            <tr>{renderHeaders()}</tr>
+          </thead>
+          {data && data?.length > 0 && <tbody>{renderRows()}</tbody>}
+        </table>
 
-      <table cellPadding="0" cellSpacing="0">
-        <thead>
-          <tr>{renderHeaders()}</tr>
-        </thead>
-        {data && data?.length > 0 && <tbody>{renderRows()}</tbody>}
-      </table>
+        {(typeof data === "undefined" || data?.length === 0) && (
+          <EmptyState>No Data!</EmptyState>
+        )}
+      </Container>
       {data &&
         pagination &&
         (pagination?.position === "bottom" ||
           pagination?.position === "both") &&
         renderPaginations()}
-      {(typeof data === "undefined" || data?.length === 0) && (
-        <EmptyState>No Data!</EmptyState>
-      )}
-    </Container>
+    </>
   );
 };
 

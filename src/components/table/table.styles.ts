@@ -4,12 +4,12 @@ import styled from "styled-components";
 export const Container = styled.div`
   @media ${devices.mobile} {
     width: 100%;
-    overflow: scroll;
+    overflow-x: scroll;
   }
 
   @media ${devices.tablet} {
     width: 100%;
-    overflow: scroll;
+    overflow-x: scroll;
   }
 
   table {

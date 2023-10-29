@@ -44,7 +44,7 @@ const Image: FC<Props> = ({
   };
 
   return (
-    <ImageContainer width={width} height={height} className="xx">
+    <ImageContainer width={width} height={height} className="image-container">
       {preload && (
         <Helmet>
           <link rel="preload" as="image" href={src}></link>
