@@ -20,7 +20,7 @@ const ObserverWrapper: FC<IObserverWrapperProps> = ({
     options: { threshold, root, rootMargin },
   });
   return (
-    <div ref={ref} style={{ height: "80vh" }}>
+    <div ref={ref} style={{ height: "80vh" }} data-testid='observer-wrapper'> 
       {isInViewport && (
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
       )}

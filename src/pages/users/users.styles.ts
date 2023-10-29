@@ -22,9 +22,15 @@ export const ModalContentsContainer = styled.div`
     width: 100%;
     resize: none;
     min-height: 200px;
-    border: 1px solid #e2e2e2;
+    border: 1px solid;
+    border-color: ${(props) =>
+      props.theme.mode === "light" ? "#e2e2e2" : "#494646"};
     border-radius: 10px;
     padding: 8px;
+    background-color: ${(props) =>
+      props.theme.mode === "light" ? "white" : "#252424"};
+
+    color: ${(props) => (props.theme.mode === "light" ? "black" : "white")};
   }
 `;
 

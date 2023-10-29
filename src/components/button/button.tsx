@@ -15,7 +15,7 @@ const Button: FC<Props> = ({
   loading = false,
 }) => {
   return (
-    <StyledButton mode={mode} onClick={onClick}>
+    <StyledButton className={mode} mode={mode} onClick={onClick}>
       {loading ? "Saving..." : children}
     </StyledButton>
   );

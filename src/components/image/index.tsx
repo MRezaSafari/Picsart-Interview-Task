@@ -51,7 +51,7 @@ const Image: FC<Props> = ({
         </Helmet>
       )}
 
-      {isLoading && <LoadingContainer />}
+      {isLoading && <LoadingContainer data-testid="loading-container" />}
 
       {wrapWithObserverWrapper()}
     </ImageContainer>
