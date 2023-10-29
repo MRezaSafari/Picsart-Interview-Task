@@ -32,10 +32,19 @@ Total time spent on the project: `20h 45m`
 > Create a Single Page Application (SPA) that showcases your React skills, particularly in hooks, life-cycles, state management, Webpack optimization, and web performance.
 
 - 👉 Pages: it should contain 3 pages.
-  _ Home - ✅ The Home page should showcase some dynamic content fetched from an API
+  - Home 
+    - ✅ The Home page should showcase some dynamic content fetched from an API
   like JSONPlaceholder, where users should be able to add, delete, and list items
   (e.g., tasks, notes, etc.).
-  _ User List Page - ✅ Display a list of users with the following columns: Name, Email, Age, and Actions. - ✅ Pagination: Limit to 10 users per page. - ✅ Sort: Provide sorting options for Name and Age. - ✅ Search: Include a search bar to search users by name. \* User Details Page. - ✅ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture. - ✅ Provide a back button to return to the user list page.
+
+  - User List Page 
+    - ✅ Display a list of users with the following columns: Name, Email, Age, and Actions. 
+    - ✅ Pagination: Limit to 10 users per page. 
+    - ✅ Sort: Provide sorting options for Name and Age. 
+    - ✅ Search: Include a search bar to search users by name. 
+  - User Details Page. 
+    - ✅ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture. 
+    - ✅ Provide a back button to return to the user list page.
 - 👉 Typescript
   - ✅ Ensure the entire application is written using TypeScript.
   - ✅ Utilize strong typing, including interfaces and types wherever necessary.
@@ -47,7 +56,8 @@ Total time spent on the project: `20h 45m`
   - ✅ Use React Router for navigation.
   - ✅ Add animations/transitions when navigating between pages
 
-- 👉 State Management: - ✅ Choose a state management strategy or tool (e.g., Context API, Redux, Recoil).
+- 👉 State Management: 
+    - ✅ Choose a state management strategy or tool (e.g., Context API, Redux, Recoil).
   Implement a theme switcher (light/dark mode) using the chosen state
   management tool.
 - 👉 Performance:
