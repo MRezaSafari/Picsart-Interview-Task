@@ -11,7 +11,7 @@ export const BannerContents = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  div:first-child {
+  > div:first-of-type {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ export const BannerContents = styled.div`
     }
   }
 
-  div:last-child {
+  > div:last-of-type {
     width: 40%;
   }
 `;

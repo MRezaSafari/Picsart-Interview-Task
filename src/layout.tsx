@@ -7,7 +7,7 @@ import { useThemeStore } from "./states";
 import { Header, Logo } from "./app.styles";
 import { IconBrightnessDown, IconMoonStars } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import Button from "./components/button/button";
+import { Helmet } from "react-helmet";
 
 const pageVariants = {
   initial: {
@@ -32,52 +32,58 @@ const RootLayout: FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <main>
-      <ThemeProvider
-        theme={themeStore.theme === "light" ? lightTheme : darkTheme}
-      >
-        <GlobalStyle />
-        <div>
-          <Header className="container">
-            <Logo href="/" />
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Picsart Interview Task</title>
+      </Helmet>
+      <main>
+        <ThemeProvider
+          theme={themeStore.theme === "light" ? lightTheme : darkTheme}
+        >
+          <GlobalStyle />
+          <div>
+            <Header className="container">
+              <Logo href="/" />
 
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/users">Users</Link>
+                </li>
+              </ul>
 
-            <div>
-              {themeStore.theme === "light" && (
-                <IconMoonStars
-                  size={30}
-                  onClick={() => themeStore.switch("dark")}
-                />
-              )}
-              {themeStore.theme === "dark" && (
-                <IconBrightnessDown
-                  size={30}
-                  onClick={() => themeStore.switch("light")}
-                />
-              )}
-            </div>
-          </Header>
-         
-          <motion.div
-            key={pathname}
-            initial="initial"
-            animate="in"
-            variants={pageVariants}
-            transition={pageTransition}
-          >
-            <Outlet />
-          </motion.div>
-        </div>
-      </ThemeProvider>
-    </main>
+              <div>
+                {themeStore.theme === "light" && (
+                  <IconMoonStars
+                    size={30}
+                    onClick={() => themeStore.switch("dark")}
+                  />
+                )}
+                {themeStore.theme === "dark" && (
+                  <IconBrightnessDown
+                    size={30}
+                    onClick={() => themeStore.switch("light")}
+                  />
+                )}
+              </div>
+            </Header>
+
+            <motion.div
+              key={pathname}
+              initial="initial"
+              animate="in"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <Outlet />
+            </motion.div>
+          </div>
+        </ThemeProvider>
+      </main>
+    </>
   );
 };
 

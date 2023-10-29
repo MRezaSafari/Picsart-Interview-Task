@@ -31,7 +31,7 @@ like JSONPlaceholder, where users should be able to add, delete, and list items
 (e.g., tasks, notes, etc.).
     * User List Page 
         - ✅ Display a list of users with the following columns: Name, Email, Age, and Actions.
-        - ❌ Pagination: Limit to 10 users per page.
+        - ✅ Pagination: Limit to 10 users per page.
         - ❌ Sort: Provide sorting options for Name and Age.
         - ❌ Search: Include a search bar to search users by name.
     * User Details Page.

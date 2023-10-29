@@ -8,6 +8,7 @@ import {
 } from "./home.styles";
 import { Link } from "react-router-dom";
 import ObserverWrapper from "../../components/observer-wrapper";
+import Image from "../../components/image";
 
 const ExpensiveComponent1 = lazy(
   () => import("../../components/expensive-component-1")
@@ -40,7 +41,14 @@ const Home: FC<Props> = () => {
               <Button>Start creating now</Button>
             </div>
             <div>
-              <img src="/images/aboutus.webp" />
+              <Image
+                width={524}
+                height={393}
+                alt={"Header Hero Image"}
+                lazy
+                preload
+                src="/images/aboutus.webp"
+              />
             </div>
           </BannerContents>
         </div>
@@ -74,7 +82,7 @@ const Home: FC<Props> = () => {
         </Banner>
       </div>
 
-      <div className="container" style={{marginTop: 200}}>
+      <div className="container" style={{ marginTop: 200 }}>
         <ObserverWrapper threshold={0.25}>
           <ExpensiveComponent1 />
         </ObserverWrapper>
