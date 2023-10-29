@@ -1,4 +1,4 @@
-Total time spent on the project: ``19h 30m``
+Total time spent on the project: ``20h 12m``
 
 ## TOC
 1. [How to run the project](#How-to-run-the-project)
@@ -33,7 +33,7 @@ like JSONPlaceholder, where users should be able to add, delete, and list items
         - ✅ Display a list of users with the following columns: Name, Email, Age, and Actions.
         - ✅ Pagination: Limit to 10 users per page.
         - ✅ Sort: Provide sorting options for Name and Age.
-        - ❌ Search: Include a search bar to search users by name.
+        - ✅ Search: Include a search bar to search users by name.
     * User Details Page.
         - ❌ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture.
         - ❌ Provide a back button to return to the user list page.

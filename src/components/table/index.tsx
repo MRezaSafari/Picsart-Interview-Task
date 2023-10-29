@@ -37,7 +37,6 @@ export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
   };
 
   const handlePageChange = (page: number) => {
-    console.log(22222, page, sortKey, sortOrder)
     navigate(
       generatePath("/users/:page?/:sortKey?/:sortOrder?", {
         page: page.toString(),

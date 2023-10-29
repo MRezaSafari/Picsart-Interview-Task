@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, Suspense, useEffect, useMemo, useState } from "react";
 import {
   IApiBaseModel,
   IColumnTemplate,
@@ -10,10 +10,11 @@ import {
 import { getUsersCollectionWithFilters } from "../../api";
 import Button from "../../components/button/button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Heading } from "./users.styles";
+import { Heading, SearchContainer } from "./users.styles";
 import { IconChevronRight } from "@tabler/icons-react";
 import { lazy } from "react";
 import { parse } from "querystring";
+import { debounce } from "../../utilities";
 
 const LazyTable = lazy<React.FC<ITableProps<IUser>>>(
   () => import("../../components/table")
@@ -108,6 +109,15 @@ const UsersList = (props: any) => {
     });
   }, [page, sortKey, sortOrder]);
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilters({
+      ...filters,
+      filters: [`name~"%${e.target.value}%"`]
+    });
+  }
+
+  const debouncedOnChange = debounce(onChange, 1000);
+
   return (
     <div className="container">
       <Heading>
@@ -115,9 +125,10 @@ const UsersList = (props: any) => {
         Users List
       </Heading>
 
-      <div>
-        <p>Search with </p>
-      </div>
+      <SearchContainer>
+        <p>Search by name:</p>
+        <input type="search" onChange={debouncedOnChange} />
+      </SearchContainer>
 
       <Suspense fallback={<div>Loading ...</div>}>
         <LazyTable
