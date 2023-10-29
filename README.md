@@ -1,4 +1,4 @@
-Total time spent on the project: `22h 25m`
+Total time spent on the project: `24h 10m`
 
 ## TOC
 
@@ -93,7 +93,8 @@ Total time spent on the project: `22h 25m`
     techniques you used.
 
 - 👉 Bonus
-  - ❌ Test: Quality and coverage of unit tests
+  - ✅ Test: Quality and coverage of unit tests
+    - only Button and Image component have tests
 
 ## Evaluation Criteria
 
