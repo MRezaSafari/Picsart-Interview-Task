@@ -69,7 +69,7 @@ management tool.
 * 👉 Bonus
     - ❌ Test: Quality and coverage of unit tests
 
-## My Evaluation Criteria
+## Evaluation Criteria
 1. Code Quality: Consistent code style, clear namings, modularity, and usage of best
 practices.
 2. Functionality: All features should work without errors.
@@ -78,7 +78,7 @@ loading.
 4. Responsiveness: The application should be fully responsive across devices
 
 
-## Stack of choice
+## My Stack of choice
 * Typescript
 * Webpack
 * Babel
@@ -87,6 +87,38 @@ loading.
 * Zustand
 
 ## 🔨 Design Decisions
+
+### 🔶 About Dark Mode Implementation
+What is really missing in this puzzle of choices is that the task describe that the dark mode should be applied using the state manager. although what I did is using both the state manager and styled components capabilities. in the mean time the more simple process is just use the `matchMedia` browser API. 
+
+we could just add themes like this
+
+```css
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-fg: #000000;
+}
+
+[data-theme="dark"] {
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+}
+```
+
+and then change the property in our HTML tag
+
+```html
+<html lang="en" data-theme="light">
+```
+
+and if we needed to check the theme in JS we can just use
+```js
+const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
+```
+
+and use localStorage to save the preferred theme.
+
+either way its just a design choice and both implementations works accurately. 
 
 ### 🔶 Why PocketBase
 PocketBase is a self-hosted solution that help create SASS application very fast and easy. in this project we needed something to be able to perform CRUD operations and third-party tools such as JSONPlaceHolder has their limits. such as not allowing to perform many activities in a certain time stamp. 
