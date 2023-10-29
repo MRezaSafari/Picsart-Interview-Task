@@ -20,7 +20,6 @@ Total time spent on the project: ``20h 12m``
 ### 📊 Analyze bundle size
 ``npm run analyze``
 
-
 ## Task Definition
 
 ### Objective:
@@ -38,8 +37,8 @@ like JSONPlaceholder, where users should be able to add, delete, and list items
         - ✅ Sort: Provide sorting options for Name and Age.
         - ✅ Search: Include a search bar to search users by name.
     * User Details Page.
-        - ❌ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture.
-        - ❌ Provide a back button to return to the user list page.
+        - ✅ Display detailed information of a selected user: Full Name, Email, Age,Address, and Profile Picture.
+        - ✅ Provide a back button to return to the user list page.
 * 👉 Typescript
     - ✅ Ensure the entire application is written using TypeScript.
     - ✅ Utilize strong typing, including interfaces and types wherever necessary.
@@ -66,14 +65,14 @@ management tool.
     it for customization).
     - ❌ Ensure the final bundle is optimized in size.
     - ✅ Implement tree-shaking if necessary.
-    - ❌ Set up Webpack to show a bundle size report.
+    - ✅ Set up Webpack to show a bundle size report.
     - ❌ Server-Side Rendering (Optional but a plus):
     - ❌ Implement server-side rendering for the application to showcase initial load
     performance enhancement.
 
 * 👉 Extras:
     - ✅ Use styled-components or any CSS-in-JS solution of your choice.
-    Ensure the application is responsive.
+    - ❌ Ensure the application is responsive.
     - ✅ Implement error boundaries in the application for better error handling.
 
 * 👉 Documentation:

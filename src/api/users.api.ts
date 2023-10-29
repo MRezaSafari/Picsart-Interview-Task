@@ -23,4 +23,12 @@ const getUsersCollectionWithFilters = async ({
   return result;
 };
 
-export { getUsersCollectionWithFilters };
+const getUserWithId = async (id: string) => {
+  const result = (await fetcher(ApiKeys.getUser(id), "GET", {
+    noCache: true,
+  })) as IUser;
+
+  return result;
+};
+
+export { getUsersCollectionWithFilters, getUserWithId };
