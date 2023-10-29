@@ -16,3 +16,23 @@ export const SearchContainer = styled.div`
     min-width: 250px;
   }
 `;
+
+export const ModalContentsContainer = styled.div`
+  textarea {
+    width: 100%;
+    resize: none;
+    min-height: 200px;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 8px;
+  }
+`;
+
+export const ModalButtonContainer = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;

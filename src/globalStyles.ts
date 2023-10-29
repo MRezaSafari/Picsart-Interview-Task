@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: Nato, Open-Sans, Helvetica, Sans-Serif;
   }
 
+  *{
+    box-sizing: border-box;
+  }
+
   .container {
     max-width: 1280px;
     margin: auto;

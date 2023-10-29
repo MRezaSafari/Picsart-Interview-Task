@@ -1,19 +1,39 @@
-import React, { ChangeEvent, ChangeEventHandler, Suspense, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   IApiBaseModel,
   IColumnTemplate,
   ITableProps,
+  IModalProps,
   IUser,
   IUserFetch,
   OrderDirection,
 } from "../../models";
-import { getUsersCollectionWithFilters } from "../../api";
+import {
+  getUserNoteWithId,
+  getUsersCollectionWithFilters,
+  updateUserNote,
+} from "../../api";
 import Button from "../../components/button/button";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Heading, SearchContainer } from "./users.styles";
-import { IconChevronRight } from "@tabler/icons-react";
+import {
+  Heading,
+  ModalButtonContainer,
+  ModalContentsContainer,
+  SearchContainer,
+} from "./users.styles";
+import { IconChevronRight, IconNote, IconNoteOff } from "@tabler/icons-react";
 import { lazy } from "react";
 import { debounce } from "../../utilities";
+
+const LazyModal = lazy<React.FC<IModalProps>>(
+  () => import("../../components/modal")
+);
 
 const LazyTable = lazy<React.FC<ITableProps<IUser>>>(
   () => import("../../components/table")
@@ -21,7 +41,11 @@ const LazyTable = lazy<React.FC<ITableProps<IUser>>>(
 
 const UsersList = (props: any) => {
   const { page, sortKey, sortOrder } = useParams();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<string>("");
+  const [isLoadingUserNote, setLoadingUserNote] = useState<boolean>(false);
+  const [isSavingUserNote, setIsSavingUserNote] = useState<boolean>(false);
+  const [userNote, setUserNote] = useState<string>("");
   const tableColumns: IColumnTemplate<IUser>[] = useMemo(
     () => [
       {
@@ -58,9 +82,13 @@ const UsersList = (props: any) => {
               alignItems: "center",
             }}
           >
+            {row.note && row.note.length > 0 && <IconNote />}
+            {row.note.length === 0 && <IconNoteOff color={"#bcbcbc"} />}
             <Button
               onClick={() => {
-                alert(row.age);
+                setSelectedUser(row.id);
+                fetchUserNote(row.id);
+                setIsModalOpen(true);
               }}
             >
               Add Note
@@ -74,7 +102,6 @@ const UsersList = (props: any) => {
   );
 
   const [fetchResult, setFetchResult] = useState<IApiBaseModel<IUser[]>>();
-  const { hash } = useLocation();
   const [filters, setFilters] = useState<IUserFetch>({
     page: 1,
     perPage: 10,
@@ -88,11 +115,6 @@ const UsersList = (props: any) => {
       console.error("Error fetching users:", error);
       // Optionally set some state to show an error message to the user
     }
-    // page: 1,
-    // perPage: 10,
-    // sortKey: "age",
-    // sortDirection: "DESC",
-    // filters: [`email~"%kelly%"`, "age>33"],
   };
 
   useEffect(() => {
@@ -103,22 +125,79 @@ const UsersList = (props: any) => {
     setFilters({
       ...filters,
       page: page ? +page : filters.page,
-      sortKey: sortKey ? sortKey as keyof IUser : filters.sortKey,
-      sortDirection: sortOrder ? sortOrder as OrderDirection : filters.sortDirection
+      sortKey: sortKey ? (sortKey as keyof IUser) : filters.sortKey,
+      sortDirection: sortOrder
+        ? (sortOrder as OrderDirection)
+        : filters.sortDirection,
     });
   }, [page, sortKey, sortOrder]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters({
       ...filters,
-      filters: [`name~"%${e.target.value}%"`]
+      filters: [`name~"%${e.target.value}%"`],
     });
-  }
+  };
 
   const debouncedOnChange = debounce(onChange, 1000);
 
+  const fetchUserNote = async (selectedUser: string) => {
+    const result = await getUserNoteWithId(selectedUser);
+    setUserNote(result.note);
+  };
+
+  const handleSaveUserNote = async (mode: "edit" | "delete") => {
+    setIsSavingUserNote(true);
+
+    await updateUserNote(selectedUser, mode === "edit" ? userNote : "");
+    await getUsers();
+
+    setIsSavingUserNote(false);
+
+    setUserNote("");
+    setSelectedUser("");
+    setIsModalOpen(false);
+  };
+
+  const renderModalContents = () => (
+    <ModalContentsContainer>
+      {isLoadingUserNote && <div>Loading ...</div>}
+      {!isLoadingUserNote && (
+        <>
+          <textarea
+            onChange={(e) => setUserNote(e.target.value)}
+            defaultValue={userNote}
+            placeholder="note..."
+          />
+          <ModalButtonContainer>
+            <Button
+              mode="danger"
+              loading={isSavingUserNote}
+              onClick={() => handleSaveUserNote("delete")}
+            >
+              Delete note
+            </Button>
+            <Button
+              loading={isSavingUserNote}
+              onClick={() => handleSaveUserNote("edit")}
+            >
+              Save
+            </Button>
+          </ModalButtonContainer>
+        </>
+      )}
+    </ModalContentsContainer>
+  );
+
   return (
     <div className="container">
+      <LazyModal
+        title="User Note"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        {renderModalContents()}
+      </LazyModal>
       <Heading>
         <IconChevronRight />
         Users List

@@ -31,4 +31,23 @@ const getUserWithId = async (id: string) => {
   return result;
 };
 
-export { getUsersCollectionWithFilters, getUserWithId };
+const getUserNoteWithId = async (id: string) => {
+  const result = (await fetcher(ApiKeys.getUserNote(id), "GET", {
+    noCache: true,
+  })) as { note: string };
+
+  return result;
+};
+
+const updateUserNote = async (id: string, note: string) => {
+  const result = (await fetcher(ApiKeys.patchUserNote(id), "PATCH", {
+    noCache: true,
+    body: {
+      note,
+    },
+  })) as { note: string };
+
+  return result;
+};
+
+export { getUsersCollectionWithFilters, getUserWithId, getUserNoteWithId, updateUserNote };
