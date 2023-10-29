@@ -22,7 +22,7 @@ Running tests
 
 ### Objective:
 
-> Create a Single Page Application (SPA) that showcases your React skills, particularly in hooks, lifecycles, state management, Webpack optimization, and web performance.
+> Create a Single Page Application (SPA) that showcases your React skills, particularly in hooks, life-cycles, state management, Webpack optimization, and web performance.
 
 * 👉 Pages: it should contain 3 pages. 
     * Home
@@ -156,5 +156,6 @@ I strongly believe in 99.99% percent of projects you don't need such things to h
 10. **Small Bundle Size**: Due to its simplicity and focused feature set, Zustand contributes to smaller bundle sizes, which is essential for optimizing application performance.
 
 
-## Improvement Opportunities
+## 🔥 Improvement Opportunities
 1. Use Linting tools to prevent code mistakes and help new joiners match the code style.
+2. We can use Cloudflare image optimization for our image component so we can optimize, resize, decode image on demand.
