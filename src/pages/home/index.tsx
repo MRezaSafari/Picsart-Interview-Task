@@ -82,6 +82,7 @@ const Home: FC<Props> = () => {
         </Banner>
       </div>
 
+        
       <div className="container" style={{ marginTop: 200 }}>
         <ObserverWrapper threshold={0.25}>
           <ExpensiveComponent1 />

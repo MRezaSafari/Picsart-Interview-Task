@@ -7,7 +7,7 @@ import { useThemeStore } from "./states";
 import { Header, Logo } from "./app.styles";
 import { IconBrightnessDown, IconMoonStars } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const pageVariants = {
   initial: {

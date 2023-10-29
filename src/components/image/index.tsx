@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import ObserverWrapper from "../observer-wrapper";
 import { ImageContainer, LoadingContainer } from "./image.styles";
 

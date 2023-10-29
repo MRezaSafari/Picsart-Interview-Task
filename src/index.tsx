@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import AppRoot from "./app";
 import { BrowserRouter } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
+import { HelmetProvider } from "react-helmet-async";
 
 let rootElement: unknown = null;
 
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     commitTime, // when React committed this update
     interactions // the Set of interactions belonging to this update
   ) => {
-    console.log(
+    console.info(
       `${id}::${phase}::${actualDuration}::${baseDuration}::${startTime}::${commitTime}`
     );
   };
@@ -30,11 +31,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     root.render(
       <React.StrictMode>
         <ErrorBoundary>
-          <BrowserRouter>
-            <React.Profiler id="Navigation" onRender={onRenderCallback}>
-              <AppRoot />
-            </React.Profiler>
-          </BrowserRouter>
+          <HelmetProvider>
+            <BrowserRouter>
+              <React.Profiler id="Navigation" onRender={onRenderCallback}>
+                <AppRoot />
+              </React.Profiler>
+            </BrowserRouter>
+          </HelmetProvider>
         </ErrorBoundary>
       </React.StrictMode>
     );

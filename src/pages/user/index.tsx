@@ -16,7 +16,7 @@ const UserDetails: FC<Props> = () => {
   const [loading, setLoading] = useState(true);
 
   const getUser = async () => {
-    if (!id) return;
+    if (!id) return null;
 
     const result = await getUserWithId(id);
 
