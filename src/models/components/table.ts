@@ -13,7 +13,13 @@ interface IColumnTemplate<T> {
 
 interface ITableProps<T> {
   columns: IColumnTemplate<T>[];
-  data: T[];
+  data: T[] | undefined;
+  pagination?: {
+    position: "top" | "bottom" | "both";
+    totalItems: number;
+    perPage: number;
+    currentPage: number;
+  };
 }
 
 export type { IColumnTemplate, ColumnType, ITableProps };

@@ -1,9 +1,22 @@
+Total time spent on the project: ``18h 22m``
+
 ## TOC
-1. [Task Definition](#Task-Definition)
-2. [Evaluation Criteria](#Evaluation-Criteria)
-3. [My Stack of choice](#My-Stack-of-choice)
-4. [Design Decisions](#Design-Decisions)
-5. [Improvement Opportunities](#Improvement-Opportunities)
+1. [How to run the project](#How-to-run-the-project)
+2. [Task Definition](#Task-Definition)
+3. [Evaluation Criteria](#Evaluation-Criteria)
+4. [My Stack of choice](#My-Stack-of-choice)
+5. [Design Decisions](#Design-Decisions)
+6. [Improvement Opportunities](#Improvement-Opportunities)
+
+## How to run the project
+1. Install dependencies
+    - ``pnpm install``
+2. Run project in dev mode
+    - ``npm run start``
+
+Running tests
+``npm run test``
+
 
 ## Task Definition
 
@@ -40,7 +53,7 @@ Implement a theme switcher (light/dark mode) using the chosen state
 management tool.
 * 👉 Performance:
     - ✅ Implement code-splitting using React.lazy() and Suspense.
-    - ❌ Use useMemo or useCallback where necessary to showcase your ability to
+    - ✅ Use useMemo or useCallback where necessary to showcase your ability to
     prevent unnecessary renders or recalculations.
     - ✅ Ensure no render-blocking resources are present.
     - ❌ Optimize images or any assets you use.
@@ -49,7 +62,7 @@ management tool.
     - ✅ Customize the Webpack config (You might start with Create React App but eject
     it for customization).
     - ❌ Ensure the final bundle is optimized in size.
-    - ❌ Implement tree-shaking if necessary.
+    - ✅ Implement tree-shaking if necessary.
     - ❌ Set up Webpack to show a bundle size report.
     - ❌ Server-Side Rendering (Optional but a plus):
     - ❌ Implement server-side rendering for the application to showcase initial load

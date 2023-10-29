@@ -77,11 +77,11 @@ export const Container = styled.div`
 
     tbody tr:nth-child(even) td {
       background-color: ${({ theme }) => theme.table.rowBackgroundColor};
-
     }
 
     tbody tr:hover td {
-      background-color:  ${({ theme }) => theme.table.hoverRowBackgroundColor} !important;
+      background-color: ${({ theme }) =>
+        theme.table.hoverRowBackgroundColor} !important;
     }
   }
 `;
@@ -110,4 +110,29 @@ export const EmptyState = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+`;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+`;
+
+export const PaginationList = styled.ul`
+  display: flex;
+  gap: 10px;
+`;
+
+export const PaginationItem = styled.li<{ $active: boolean }>`
+  border: 1px solid #e2e2e2;
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  background-color: ${(props) => (props.$active ? "blue" : "white")};
+
+  a {
+    display: block;
+    color: ${(props) => (props.$active ? "white" : "black")};
+  }
 `;

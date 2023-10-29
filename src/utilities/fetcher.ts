@@ -66,7 +66,7 @@ const fetcher = async (
 
     return response.json();
   } catch (error: any) {
-    const errorMessage = await error.json();
+    const errorMessage = error;
 
     // TODO: Log the error in some log management system like Sentry
     

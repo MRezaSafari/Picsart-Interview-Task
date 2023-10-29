@@ -3,14 +3,21 @@ import React, { useEffect, useState } from "react";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
 import { IColumnTemplate, ITableProps } from "../../models";
-import { Container, EmptyState, HeaderItem } from "./table.styles";
+import {
+  Container,
+  EmptyState,
+  HeaderItem,
+  PaginationContainer,
+  PaginationItem,
+  PaginationList,
+} from "./table.styles";
+import { Link } from "react-router-dom";
 
-
-export const Table = <T,>({ columns, data }: ITableProps<T>) => {
-  const [sortedData, setSortedData] = useState<T[]>(data);
+export const Table = <T,>({ columns, data, pagination }: ITableProps<T>) => {
+  const [sortedData, setSortedData] = useState<T[]>(data || []);
 
   useEffect(() => {
-    setSortedData(data);
+    setSortedData(data || []);
   }, [data]);
 
   const handleSort = (key: string | undefined, order: "ASC" | "DESC") => {
@@ -51,6 +58,7 @@ export const Table = <T,>({ columns, data }: ITableProps<T>) => {
     ));
 
   const renderRows = () =>
+    sortedData &&
     [...Array(sortedData?.length).keys()].map((row: number) => (
       <tr key={`row-${row}`}>
         {columns.map((r: IColumnTemplate<T>) => (
@@ -64,14 +72,50 @@ export const Table = <T,>({ columns, data }: ITableProps<T>) => {
       </tr>
     ));
 
+  const renderPaginationItems = (page: number) => {
+    return (
+      <PaginationItem key={page} $active={page + 1 === pagination?.currentPage}>
+        <Link to={`#page=${[page + 1]}`}>{page + 1}</Link>
+      </PaginationItem>
+    );
+  };
+
+  const renderPaginations = () => {
+    // it should not render pagination if we have less items than perPage value
+    if (!pagination || pagination.totalItems < pagination.perPage) return;
+
+    const totalPages = Math.ceil(pagination.totalItems / pagination.perPage);
+
+    return (
+      <PaginationContainer>
+        <p>
+          Showing {pagination?.perPage} out of {pagination?.totalItems}
+        </p>
+        <PaginationList>
+          {[...Array(totalPages).keys()].map((p) => renderPaginationItems(p))}
+        </PaginationList>
+      </PaginationContainer>
+    );
+  };
+
   return (
     <Container>
+      {data &&
+        pagination &&
+        (pagination?.position === "top" || pagination?.position === "both") &&
+        renderPaginations()}
+
       <table cellPadding="0" cellSpacing="0">
         <thead>
           <tr>{renderHeaders()}</tr>
         </thead>
         {data && data?.length > 0 && <tbody>{renderRows()}</tbody>}
       </table>
+      {data &&
+        pagination &&
+        (pagination?.position === "bottom" ||
+          pagination?.position === "both") &&
+        renderPaginations()}
       {(typeof data === "undefined" || data?.length === 0) && (
         <EmptyState>No Data!</EmptyState>
       )}

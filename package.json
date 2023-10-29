@@ -1,6 +1,7 @@
 {
   "name": "picsart",
   "version": "1.0.0",
+  "sideEffects": false,
   "description": "",
   "main": "index.js",
   "scripts": {
