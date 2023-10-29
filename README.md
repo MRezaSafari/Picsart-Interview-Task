@@ -14,8 +14,11 @@ Total time spent on the project: ``20h 12m``
 2. Run project in dev mode
     - ``npm run start``
 
-Running tests
+### 🧪 Running tests
 ``npm run test``
+
+### 📊 Analyze bundle size
+``npm run analyze``
 
 
 ## Task Definition
