@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useState,
+  startTransition,
 } from "react";
 import {
   IApiBaseModel,
@@ -46,6 +47,7 @@ const UsersList = (props: any) => {
   const [isLoadingUserNote, setLoadingUserNote] = useState<boolean>(false);
   const [isSavingUserNote, setIsSavingUserNote] = useState<boolean>(false);
   const [userNote, setUserNote] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const tableColumns: IColumnTemplate<IUser>[] = useMemo(
     () => [
       {
@@ -108,12 +110,17 @@ const UsersList = (props: any) => {
   });
 
   const getUsers = async () => {
+    setIsLoading(true);
     try {
       const result = await getUsersCollectionWithFilters(filters);
-      setFetchResult(result);
+      startTransition(() => {
+        setFetchResult(result);
+      });
     } catch (error) {
       console.error("Error fetching users:", error);
       // Optionally set some state to show an error message to the user
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,28 +129,39 @@ const UsersList = (props: any) => {
   }, [filters]);
 
   useEffect(() => {
-    setFilters({
-      ...filters,
-      page: page ? +page : filters.page,
-      sortKey: sortKey ? (sortKey as keyof IUser) : filters.sortKey,
-      sortDirection: sortOrder
-        ? (sortOrder as OrderDirection)
-        : filters.sortDirection,
+    startTransition(() => {
+      setFilters({
+        ...filters,
+        page: page ? +page : filters.page,
+        sortKey: sortKey ? (sortKey as keyof IUser) : filters.sortKey,
+        sortDirection: sortOrder
+          ? (sortOrder as OrderDirection)
+          : filters.sortDirection,
+      });
     });
   }, [page, sortKey, sortOrder]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilters({
-      ...filters,
-      filters: [`name~"%${e.target.value}%"`],
+    startTransition(() => {
+      setFilters({
+        ...filters,
+        filters: [`name~"%${e.target.value}%"`],
+      });
     });
   };
 
   const debouncedOnChange = debounce(onChange, 1000);
 
   const fetchUserNote = async (selectedUser: string) => {
-    const result = await getUserNoteWithId(selectedUser);
-    setUserNote(result.note);
+    setLoadingUserNote(true);
+    try {
+      const result = await getUserNoteWithId(selectedUser);
+      startTransition(() => {
+        setUserNote(result.note);
+      });
+    } finally {
+      setLoadingUserNote(false);
+    }
   };
 
   const handleSaveUserNote = async (mode: "edit" | "delete") => {
@@ -191,13 +209,16 @@ const UsersList = (props: any) => {
 
   return (
     <div className="container">
-      <LazyModal
-        title="User Note"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      >
-        {renderModalContents()}
-      </LazyModal>
+      <Suspense fallback={<div>Loading ...</div>}>
+        <LazyModal
+          title="User Note"
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        >
+          {renderModalContents()}
+        </LazyModal>
+      </Suspense>
+
       <Heading>
         <IconChevronRight />
         Users List
@@ -208,18 +229,22 @@ const UsersList = (props: any) => {
         <input type="search" onChange={debouncedOnChange} />
       </SearchContainer>
 
-      <Suspense fallback={<div>Loading ...</div>}>
-        <LazyTable
-          columns={tableColumns}
-          data={fetchResult?.items}
-          pagination={{
-            totalItems: fetchResult?.totalItems || 0,
-            perPage: filters.perPage,
-            currentPage: filters.page,
-            position: "both",
-          }}
-        />
-      </Suspense>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Suspense fallback={<div>Loading ...</div>}>
+          <LazyTable
+            columns={tableColumns}
+            data={fetchResult?.items}
+            pagination={{
+              totalItems: fetchResult?.totalItems || 0,
+              perPage: filters.perPage,
+              currentPage: filters.page,
+              position: "both",
+            }}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
